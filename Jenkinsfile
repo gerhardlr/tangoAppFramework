@@ -1,10 +1,8 @@
 pipeline {
   agent any
   stages {
-    stage('Test') {
+    stage('') {
       steps {
-        sh 'node --version'
-        sh 'cd Testing/CI'
         sh 'docker -v'
       }
     }
