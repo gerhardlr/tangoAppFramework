@@ -10,7 +10,7 @@ pipeline {
       steps {
         sh 'node --version'
         sh 'cd Testing/CI'
-        sh 'docker-compose up'
+        sh 'docker -v'
       }
     }
   }
