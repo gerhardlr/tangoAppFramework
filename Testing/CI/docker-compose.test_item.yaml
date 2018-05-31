@@ -22,8 +22,6 @@ services:
       dockerfile: Dockerfile
     image: guitester_image
     container_name: guitester
-    volumes:
-      - $HOMEDEV:/Testing
     entrypoint:
       - /dockerstartup/vnc_startup.sh
     ports:
@@ -41,8 +39,6 @@ services:
     networks:
       - tbase_tango_network
       - local_testing
-    volumes:
-      - $HOMEDEV:/app
     expose:
       - "5000"
     ports:
