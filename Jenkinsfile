@@ -1,9 +1,9 @@
 pipeline {
   agent any
   stages {
-    stage('error') {
+    stage('build test bench') {
       steps {
-        sh 'docker-compose --version'
+        sh 'cd Testing/CI'
       }
     }
   }
