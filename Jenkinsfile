@@ -1,16 +1,12 @@
 pipeline {
-  agent {
-    docker {
-      image 'ubuntu'
+    agent {
+        docker { image 'node:7-alpine' }
     }
-
-  }
-  stages {
-    stage('build testing system') {
-      steps {
-        sh 'cd Testing/CI/'
-        sh 'docker-compose -f docker-compose.tangobase.yaml up'
-      }
+    stages {
+        stage('Test') {
+            steps {
+                sh 'node --version'
+            }
+        }
     }
-  }
 }
