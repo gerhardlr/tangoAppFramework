@@ -18,7 +18,7 @@ services:
       - tbase_tango_network
       - local_testing
     build:      
-      context: ../build
+      context: ../build/
       dockerfile: Dockerfile
     image: guitester_image
     container_name: guitester
