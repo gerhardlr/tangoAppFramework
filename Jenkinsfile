@@ -4,7 +4,7 @@ pipeline {
     stage('build test bench') {
       steps {
         sh 'cd Testing/CI'
-        sh 'docker-compose -f docker-compose.tangobase.yaml up'
+        sh 'ls'
       }
     }
   }
