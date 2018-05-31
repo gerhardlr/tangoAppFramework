@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('test') {
       steps {
-        sh 'cd Testing/'
+        sh 'cd Testing/CI/'
       }
     }
   }
