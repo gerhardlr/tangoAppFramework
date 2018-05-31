@@ -16,6 +16,7 @@ pipeline {
       steps {
         sh 'docker-compose -f Testing/CI/docker-compose.test_item.yaml down'
         sh 'docker-compose -f Testing/CI/docker-compose.test_bench.yaml down'
+        cleanWs(cleanWhenAborted: true, cleanWhenFailure: true, cleanWhenNotBuilt: true, cleanWhenSuccess: true, cleanWhenUnstable: true, cleanupMatrixParent: true, deleteDirs: true)
       }
     }
   }
