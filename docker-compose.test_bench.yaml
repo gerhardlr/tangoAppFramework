@@ -26,8 +26,6 @@ services:
     hostname: databaseds
     depends_on:
       - tangodb
-    networks:
-      - tango_network
     environment:
       - MYSQL_HOST=tangodb:3306 
       - MYSQL_DATABASE=tango

@@ -20,8 +20,6 @@ services:
       - TANGO_HOST=databaseds:10000
       - FLASK_APP=App
       - FLASK_ENV=development
-    networks:
-      - tangoappframework_tango_network
     entrypoint:
       - /usr/local/bin/wait-for-it.sh
       - databaseds:10000
