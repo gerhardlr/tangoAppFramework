@@ -9,7 +9,7 @@ pipeline {
     }
     stage('Test') {
       steps {
-        sh 'docker-compose -f appModule/docker-compose.test_item.yaml up -d'
+        sh 'docker-compose -f appModule/docker-compose.test_item.yaml up'
         sh 'docker-compose -f appModule/docker-compose.test_item.yaml down'
       }
     }
