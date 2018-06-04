@@ -1,0 +1,45 @@
+#
+# Docker compose file that launches an basic ubuntu fce server with vnc access over vnc client and web brower
+# the server will run jive at startup
+# connect to browser via localhost:6901/?password=vncpassword
+#
+# Defines:
+#   - itango: iTango interactive session
+#
+# Requires: 
+#   - tbase/docker compose up
+#   - nexternal network is defined by tbase
+
+version: '2'
+
+services:
+  tango_dev_testing:
+    build:      
+      context: appModule/
+      dockerfile: Dockerfile
+    container_name: tango_dev_testing 
+    environment:
+      - TANGO_HOST=databaseds:10000 
+      - FLASK_APP=/app/App2/App.py
+      - FLASK_ENV=development
+    networks:
+      - tbase_tango_network
+      - local_testing
+    expose:
+      - "5000"
+    ports:
+      - "127.0.0.1:5002:5000"
+    entrypoint:
+      - /usr/local/bin/wait-for-it.sh
+      - databaseds:10000
+      - --timeout=30
+      - --strict
+      - --
+      - flask
+      - run
+      - --host=0.0.0.0
+networks:
+  tangoappframework__tango_network:
+    external: true
+  local_testing:
+    driver: bridge

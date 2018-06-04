@@ -6,41 +6,29 @@
 # Defines:
 #   - itango: iTango interactive session
 #
-# Requires: 
+# Requires:
 #   - tbase/docker compose up
 #   - nexternal network is defined by tbase
 
 version: '2'
 
 services:
-  guitester:
-    networks:
-      - tbase_tango_network
-      - local_testing
-    build:      
-      context: ../build/
-      dockerfile: Dockerfile
-    image: guitester_image
-    container_name: guitester
-    entrypoint:
-      - /dockerstartup/vnc_startup.sh
-    ports:
-      - 5902:5901
-      - 6902:6901
   tango_dev_testing:
-    build:      
-      context: ../../App/xxx_DS/Build
-      dockerfile: Dockerfile
-    container_name: tango_dev_testing 
+    build: .
+    container_name: tango_dev_testing
     environment:
-      - TANGO_HOST=databaseds:10000 
-      - FLASK_APP=/app/xxx_DS/app.py
+      - TANGO_HOST=databaseds:10000
+      - FLASK_APP=App
       - FLASK_ENV=development
     networks:
-      - tbase_tango_network
+      - tangoappframework_tango_network
       - local_testing
+    stdin_open: true
+    tty: true
+    volumes:
+      - $DEV_HOME:/home/appModule
     expose:
-      - "5000"
+      - "5002"
     ports:
       - "127.0.0.1:5002:5000"
     entrypoint:
@@ -49,11 +37,13 @@ services:
       - --timeout=30
       - --strict
       - --
-      - flask
-      - run
-      - --host=0.0.0.0
+#      - bash -it "python"
+      - tail -f /dev/null
+#      - flask
+#      - run
+#      - --host=0.0.0.0
 networks:
-  tbase_tango_network:
+  tangoappframework_tango_network:
     external: true
   local_testing:
     driver: bridge
