@@ -1,8 +1,5 @@
 pipeline {
   agent any
-  environment {
-    DOCKER_NETWORK = 'docker-network'
-  }
   stages {
     stage('Build') {
       steps {
@@ -11,9 +8,18 @@ pipeline {
       }
     }
     stage('Test') {
-      steps {
-        sh 'docker-compose -f appModule/docker-compose.test_item.yaml up -d'
-        sh 'docker-compose -f appModule/docker-compose.test_item.yaml down -d'
+      parallel {
+        stage('Test') {
+          steps {
+            sh 'docker-compose -f appModule/docker-compose.test_item.yaml up -d'
+            sh 'docker-compose -f appModule/docker-compose.test_item.yaml down -d'
+          }
+        }
+        stage('failed build') {
+          steps {
+            catchError()
+          }
+        }
       }
     }
     stage('Tear down') {
@@ -23,5 +29,8 @@ pipeline {
         cleanWs(cleanWhenAborted: true, cleanWhenFailure: true, cleanWhenNotBuilt: true, cleanWhenSuccess: true, cleanWhenUnstable: true, cleanupMatrixParent: true, deleteDirs: true)
       }
     }
+  }
+  environment {
+    DOCKER_NETWORK = 'docker-network'
   }
 }
