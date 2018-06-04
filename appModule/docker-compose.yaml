@@ -43,7 +43,6 @@ services:
 #      - run
 #      - --host=0.0.0.0
 networks:
-  tangoappframework_tango_network:
-    external: true
-  local_testing:
-    driver: bridge
+  default:
+    external:
+      name: $DOCKER_NETWORK

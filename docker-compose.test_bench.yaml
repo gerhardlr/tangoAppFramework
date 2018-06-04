@@ -20,9 +20,6 @@ services:
       - MYSQL_PASSWORD=tango
     volumes:
       - tangodb:/var/lib/mysql
-    networks:
-      - tango_network
-
   databaseds:
     image: gerhardlr/tango_base:latest
     container_name: databaseds
@@ -48,8 +45,6 @@ services:
       - -ORBendPoint
       - giop:tcp::10000
   tangotestds:
-    networks:
-      - tango_network
     image: gerhardlr/tango_base:latest
     container_name: tangotestds
     hostname: tangotestds
@@ -70,5 +65,6 @@ services:
       - /usr/local/bin/TangoTest
       - "test"
 networks:
-  tango_network:
-    driver: bridge
+  default:
+    external:
+      name: $DOCKER_NETWORK

@@ -35,5 +35,6 @@ services:
       - -f
       - "functional_tests"
 networks:
-  tangoappframework_tango_network:
-    external: true
+  default:
+    external:
+      name: $DOCKER_NETWORK
