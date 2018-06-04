@@ -21,16 +21,10 @@ pipeline {
     }
   }
   post {
-        unstable {
-            echo 'I am unstable :/'
-        }
         failure {
             sh 'docker-compose -f docker-compose.test_bench.yaml down --remove-orphans'
             sh 'docker-compose -f appModule/docker-compose.test_item.yaml down --remove-orphans'
-            sh 'sh docker network rm docker-network'
-        }
-        changed {
-            echo 'Things were different before...'
+            sh 'docker network rm docker-network'
         }
     }
   environment {
