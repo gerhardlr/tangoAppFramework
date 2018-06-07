@@ -5,18 +5,18 @@ pipeline {
       steps {
         sh 'docker network create docker-network'
         sh 'pwd'
-        sh 'docker-compose -f ../Testing/docker-compose.test_bench.yaml up -d'
+        sh 'docker-compose -f Testing/docker-compose.test_bench.yaml up -d'
       }
     }
     stage('Test') {
       steps {
-        sh 'docker-compose -f ../appModule/docker-compose.test_item.yaml up'
-        sh 'docker-compose -f ../appModule/docker-compose.test_item.yaml down'
+        sh 'docker-compose -f appModule/docker-compose.test_item.yaml up'
+        sh 'docker-compose -f appModule/docker-compose.test_item.yaml down'
       }
     }
     stage('Tear down') {
       steps {
-        sh 'docker-compose -f ../Testing/docker-compose.test_bench.yaml down'
+        sh 'docker-compose -f Testing/docker-compose.test_bench.yaml down'
         sh 'docker network rm docker-network'
       }
     }
@@ -24,8 +24,8 @@ pipeline {
   post {
         failure {
             sh 'docker network rm docker-network'
-            sh 'docker-compose -f ../Testing/docker-compose.test_bench.yaml down --remove-orphans'
-            sh 'docker-compose -f ../appModule/docker-compose.test_item.yaml down --remove-orphans'
+            sh 'docker-compose -f Testing/docker-compose.test_bench.yaml down --remove-orphans'
+            sh 'docker-compose -f appModule/docker-compose.test_item.yaml down --remove-orphans'
         }
     }
   environment {
