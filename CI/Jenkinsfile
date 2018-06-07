@@ -4,7 +4,6 @@ pipeline {
     stage('Build') {
       steps {
         sh 'docker network create docker-network'
-        sh 'pwd'
         sh 'docker-compose -f Testing/docker-compose.test_bench.yaml up -d'
       }
     }
